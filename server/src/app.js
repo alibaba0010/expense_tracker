@@ -4,9 +4,7 @@ import cookieSession from "cookie-session";
 import cors from "cors";
 import rateLimit from "express-rate-limit";
 import userRouter from "./routes/user.router.js";
-import orderRouter from "./routes/order.router.js";
-import productRouter from "./routes/product.router.js";
-import cartRouter from "./routes/cart.router.js";
+import expenseRouter from "./routes/expense.router.js";
 import dotenv from "dotenv";
 import { errorHandler } from "./errors/error.js";
 import { routeError } from "./errors/route.error.js";
@@ -36,12 +34,10 @@ app
       maxAge: 24 * 60 * 60 * 1000,
     })
   ) // 24 hours
-  .use("/products", express.static((__dirname, "./uploads")))
+//   .use("/products", express.static((__dirname, "./uploads")))
   .use("/v1", userRouter)
-  .use("/v1", orderRouter)
-  .use("/v1/products", productRouter)
-  .use("/v1", cartRouter)
-  .use("/", express.static("public"))
+  .use("/v1", expenseRouter)
+   .use("/", express.static("public"))
 
   .use(routeError)
   .use(errorHandler);
