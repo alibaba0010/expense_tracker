@@ -32,29 +32,6 @@ const UserSchema = new Schema(
       required: [true, "Please provide password"],
       minlength: [6, "Password must be up to 6 characters"],
     },
-    isAdmin: {
-      type: Boolean,
-      default: false,
-    },
-    paymentInformation: {
-      type: String,
-    },
-    address: {
-      type: [String],
-    },
-    location: [
-      {
-        type: {
-          type: String,
-          enum: ["Point"],
-        },
-        coordinates: {
-          type: [Number],
-          index: "2dsphere",
-        },
-        formattedAddress: String,
-      },
-    ],
   },
 
   { timestamps: true }
@@ -76,16 +53,6 @@ UserSchema.methods.createJWT = async function () {
     }
   );
   return signInToken;
-};
-
-// Create forgot password token
-UserSchema.methods.createPasswordToken = async function () {
-  const salt = await bcrypt.genSalt(10);
-  console.log("Id: ", this.id);
-  const hashedToken = await bcrypt.hash(this.id, salt);
-  console.log("Hashed token in db: ", hashedToken);
-
-  return hashedToken;
 };
 
 // compare password when login in
