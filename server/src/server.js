@@ -8,7 +8,7 @@ const uri = process.env.MONGO_URL;
 const server = createServer(app);
 
 (async () => {
-  await connectDB(uri);
+  // await connectDB(uri);
   server.listen(PORT, () =>
     console.log(`Listening to port @ http://localhost:${PORT}`)
   );
