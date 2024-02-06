@@ -1,5 +1,6 @@
 import { Router } from "express";
 
-const expenseRouter = Router()
+const expenseRouter = Router();
 
-export default expenseRouter
+expenseRouter.post("/").get("/").patch("/").post("/").patch("/");
+export default expenseRouter;
