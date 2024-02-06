@@ -10,12 +10,6 @@ import { errorHandler } from "./errors/error.js";
 import { routeError } from "./errors/route.error.js";
 dotenv.config();
 
-import path from "path";
-import { fileURLToPath } from "url";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
@@ -34,17 +28,10 @@ app
       maxAge: 24 * 60 * 60 * 1000,
     })
   ) // 24 hours
-//   .use("/products", express.static((__dirname, "./uploads")))
-  .use("/v1", userRouter)
-  .use("/v1", expenseRouter)
-   .use("/", express.static("public"))
+  .use("/api", userRouter)
+  .use("/api", expenseRouter)
 
   .use(routeError)
   .use(errorHandler);
 
 export default app;
-
-//   cors({
-//     origin: ["http://localhost:3000", "https://pinvent-app.vercel.app"],
-//     credentials: true,
-//   })
