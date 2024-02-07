@@ -13,7 +13,7 @@ export const authenticateUser = async (req, res, next) => {
   } else if (authHeader) {
     if (authHeader.startsWith("Bearer ")) token = authHeader.split(" ")[1];
   } else {
-    throw new UnauthenticatedError("Please login in to create a token");
+    throw new UnauthenticatedError("Please login in");
   }
   try {
     const decode = jwt.verify(token, process.env.JWT_SEC);

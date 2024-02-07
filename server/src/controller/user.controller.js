@@ -33,8 +33,9 @@ export async function httpAddNewUser(req, res) {
 export async function httpLogin(req, res) {
   const { email, password } = req.body;
   if (!email || !password)
-    throw new BadRequestError("Provide a name or email and password");
+    throw new BadRequestError("Provide an email and password");
   const user = await User.findOne({ email });
+  if (!user) throw new notFoundError("Email is incorrect.");
   const comparePassword = await user.comparePassword(password);
   if (!comparePassword) throw new UnAuthenticatedError("Invalid Password");
   const token = await user.createJWT();
@@ -50,9 +51,9 @@ export const showCurrentUser = async (req, res) => {
   const user = await User.findById(userId);
   if (!user) throw new notFoundError("Unable to get User");
 
-  const { name, id, email, isAdmin } = user;
+  const { name, id, email } = user;
 
-  return res.status(StatusCodes.OK).json({ name, id, email, isAdmin });
+  return res.status(StatusCodes.OK).json({ name, id, email });
 };
 
 // LOGOUT USER
