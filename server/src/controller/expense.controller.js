@@ -88,4 +88,11 @@ export const updateExpense = async (req, res) => {
     .status(StatusCodes.OK)
     .json({ msg: "Expense updated successfully" });
 };
-export const calculateExpense = async (req, res) => {};
+export const calculateExpense = async (req, res) => {
+  const { userId } = req.user;
+  const user = await User.findById(userId).select("-password");
+  if (!user) throw new NotFoundError("Please login in");
+  const userIncome = user.income.map((value) => value.value);
+  console.log(userIncome);
+  return res.status(StatusCodes.OK).json({ msg: "total" });
+};
