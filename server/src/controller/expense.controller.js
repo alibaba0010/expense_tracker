@@ -2,9 +2,12 @@ import BadRequestError from "../errors/badRequest.js";
 import Expense from "../model/expense/expense.mongo.js";
 
 export const addIncome = async (req, res) => {
-  const { income } = req.body;
-  if (!income || income(isNaN)) throw new BadRequestError("Invalid Input");
-  res.status(StatusCodes.CREATED).json({ income });
+  const { name, value } = req.body;
+  console.log(value(isNaN));
+  if (!name || !value || value(isNaN))
+    throw new BadRequestError("Invalid Input");
+
+  res.status(StatusCodes.CREATED).json({ name, value });
 };
 
 export const getIncome = async (req, res) => {};
