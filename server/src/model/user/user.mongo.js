@@ -32,6 +32,26 @@ const UserSchema = new Schema(
       required: [true, "Please provide password"],
       minlength: [6, "Password must be up to 6 characters"],
     },
+    income: [
+      {
+        name: {
+          type: String,
+        },
+        value: {
+          type: Number,
+        },
+      },
+    ],
+    expense: [
+      {
+        name: {
+          type: String,
+        },
+        value: {
+          type: Number,
+        },
+      },
+    ],
   },
 
   { timestamps: true }

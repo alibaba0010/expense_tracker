@@ -1,13 +1,24 @@
+import { StatusCodes } from "http-status-codes";
 import BadRequestError from "../errors/badRequest.js";
-import Expense from "../model/expense/expense.mongo.js";
+import User from "../model/user/user.mongo.js";
+import NotFoundError from "../errors/notFound.js";
 
 export const addIncome = async (req, res) => {
   const { name, value } = req.body;
-  console.log(value(isNaN));
-  if (!name || !value || value(isNaN))
+  const { userId } = req.user;
+  if (typeof name !== "string")
+    throw new BadRequestError("Name must be a string.");
+  if (!name || !value || isNaN(value))
     throw new BadRequestError("Invalid Input");
+  const user = await User.findById(userId).select("-password");
+  if (!user) throw new NotFoundError("User not found.");
+  user.income = {
+    name,
+    value,
+  };
+  await user.save();
 
-  res.status(StatusCodes.CREATED).json({ name, value });
+  res.status(StatusCodes.CREATED).json({ income: user.income });
 };
 
 export const getIncome = async (req, res) => {};

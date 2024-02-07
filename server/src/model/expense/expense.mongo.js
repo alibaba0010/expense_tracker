@@ -9,26 +9,6 @@ const ExpenseSchema = new Schema({
     required: true,
     ref: "User",
   },
-  income: [
-    {
-      anme: {
-        type: String,
-      },
-      value: {
-        type: Number,
-      },
-    },
-  ],
-  expense: [
-    {
-      anme: {
-        type: String,
-      },
-      value: {
-        type: Number,
-      },
-    },
-  ],
 });
 
 export default model("Expense", ExpenseSchema);
