@@ -76,10 +76,10 @@ export const updateExpense = async (req, res) => {
     throw new BadRequestError("Name must be a string.");
   if (!name || !value || isNaN(value))
     throw new BadRequestError("Invalid Input");
-  if (user.income.length === 10)
+  if (user.expense.length === 10)
     throw new UnAuthorizedError("Unable to add new expenses");
   const newExpense = { name, value };
-  user.income.push(newExpense);
+  user.expense.push(newExpense);
 
   await user.save();
   // const userIncome = user.income.map((value) => value.value);
@@ -93,6 +93,11 @@ export const calculateExpense = async (req, res) => {
   const user = await User.findById(userId).select("-password");
   if (!user) throw new NotFoundError("Please login in");
   const userIncome = user.income.map((value) => value.value);
-  console.log(userIncome);
-  return res.status(StatusCodes.OK).json({ msg: "total" });
+  const totalIncome = userIncome.reduce((acc, val) => acc + val, 0);
+  // FOR EXPENSE
+  const userExpense = user.expense.map((value) => value.value);
+  const totalExpense = userExpense.reduce((acc, val) => acc + val, 0);
+
+  const total = parseInt(totalIncome) - parseInt(totalExpense);
+  return res.status(StatusCodes.OK).json({ total });
 };

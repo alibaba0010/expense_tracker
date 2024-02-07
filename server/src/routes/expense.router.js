@@ -17,6 +17,6 @@ expenseRouter
   .patch("/income/update", authenticateUser, verifyUser, updateIncome)
   .post("/expense/new", authenticateUser, verifyUser, addExpense)
   .patch("/expense", authenticateUser, verifyUser, updateExpense)
-  .get("/expenses", calculateExpense);
+  .get("/expenses", authenticateUser, verifyUser, calculateExpense);
 
 export default expenseRouter;
