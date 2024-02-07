@@ -13,8 +13,8 @@ import { authenticateUser, verifyUser } from "../middleware/auth.js";
 
 expenseRouter
   .post("/income", authenticateUser, verifyUser, addIncome)
-  .get("/income", getIncome)
-  .patch("/income/update", updateIncome)
+  .get("/income", authenticateUser, verifyUser, getIncome)
+  .patch("/income/update", authenticateUser, verifyUser, updateIncome)
   .post("/expense/new", addExpense)
   .patch("/expense", updateExpense)
   .get("/expenses", calculateExpense);
