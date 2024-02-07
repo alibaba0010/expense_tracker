@@ -38,13 +38,3 @@ export async function verifyUser(req, res, next) {
     throw new UnAuthorizedError("Please login to access");
   }
 }
-
-// VERIFY ADMIN
-export async function verifyAdmin(req, res, next) {
-  const user = await User.findById(req.user.userId).select("-password");
-  if (user || user.isAdmin === true) {
-    next();
-  } else {
-    throw new UnAuthorizedError("Only admin is ascessible");
-  }
-}

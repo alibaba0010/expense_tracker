@@ -5,11 +5,7 @@ import {
   logOutUser,
   showCurrentUser,
 } from "../controller/user.controller.js";
-import {
-  authenticateUser,
-  verifyAdmin,
-  verifyUser,
-} from "../middleware/auth.js";
+import { authenticateUser, verifyUser } from "../middleware/auth.js";
 const userRouter = Router();
 userRouter
   .post("/users/register", httpAddNewUser)

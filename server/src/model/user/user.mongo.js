@@ -10,7 +10,7 @@ const exp = process.env.JWT_LIFETIME;
 
 const UserSchema = new Schema(
   {
-    username: {
+    name: {
       type: String,
       required: [true, "Please provide name"],
       unique: [true, "Username already in use"],

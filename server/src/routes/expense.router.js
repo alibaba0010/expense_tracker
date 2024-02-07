@@ -9,9 +9,10 @@ import {
   updateExpense,
   updateIncome,
 } from "../controller/expense.controller.js";
+import { authenticateUser, verifyUser } from "../middleware/auth.js";
 
 expenseRouter
-  .post("/income", addIncome)
+  .post("/income", authenticateUser, verifyUser, addIncome)
   .get("/income", getIncome)
   .patch("/income", updateIncome)
   .post("/expense/new", addExpense)
