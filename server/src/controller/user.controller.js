@@ -8,7 +8,6 @@ import {
   comparePassword,
   findUser,
   requiredFields,
-  checkValue,
 } from "../model/user/user.model.js";
 
 import dotenv from "dotenv";
